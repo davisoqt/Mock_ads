@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="admob_id"></string>
+    <string name="banner"></string>
+    <string name="interistial"></string>
+    <string name="carga"></string>
+    <string name="rewarded"></string>
+
+    <string name="onesignal_id"></string>
+
+</resources>
