@@ -14,6 +14,7 @@ firebase-crashlytics-gradle = "2.9.9"
 google-services = "4.4.0"
 gradle = "8.1.0"
 library-base = "1.11.0"
+lifecycle-runtime-compose = "2.6.1"
 lifecycle-runtime-ktx = "2.7.0"
 logging-interceptor = "4.9.0"
 okhttp = "4.9.0"
@@ -35,6 +36,7 @@ android-joda = { module = "net.danlew:android.joda", version.ref = "android-joda
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore-preferences" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-compose" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging-compose" }
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging-runtime-ktx" }
