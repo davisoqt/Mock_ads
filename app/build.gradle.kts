@@ -60,6 +60,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling.preview)
     debugImplementation(libs.compose.ui.test.manifest)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(project(":ads_module"))
 
     implementation("io.github.raamcosta.compose-destinations:animations-core:1.11.1-alpha")
     ksp("io.github.raamcosta.compose-destinations:ksp:1.11.1-alpha")

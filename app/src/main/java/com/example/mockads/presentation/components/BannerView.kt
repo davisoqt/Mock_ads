@@ -1,11 +1,14 @@
 package com.example.mockads.presentation.components
 
-import android.media.tv.AdRequest
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.window.layout.WindowMetricsCalculator
+import com.blankj.utilcode.util.StringUtils
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 
 @Composable
 fun BannerAd(modifier: Modifier = Modifier) {
