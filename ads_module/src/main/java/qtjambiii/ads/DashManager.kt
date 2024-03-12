@@ -22,8 +22,10 @@ class DashManager(val context: Context) {
     companion object {
         val IS_ADS_ENABLED = intPreferencesKey("isEnabled")
         val ADS_INTERVAL = intPreferencesKey("i")
+        val CLICK_HISTORY = intPreferencesKey("click")
         val LAST_TIME_INTERISTIAL_SHOWED = longPreferencesKey("lastTime")
         val IS_APP_FIRSTLAUNCH = booleanPreferencesKey("firtLaunch")
+        val IS_APP_RATED = booleanPreferencesKey("rate")
     }
 
     suspend fun storeInterval(interval: Int) {
@@ -71,7 +73,30 @@ class DashManager(val context: Context) {
         return false
     }
 
+    suspend fun isAppRated(): Boolean {
+        val isRated = dataStore.data.first()[IS_APP_RATED] ?: false
+        if (!isRated) {
+            dataStore.edit {
+                it[IS_APP_RATED] = true
+            }
+            return false
+        }
+        return isRated
+    }
+
+    suspend fun increaseClickHistory() {
+        val clicks = dataStore.data.first()[CLICK_HISTORY] ?: 0
+        dataStore.edit {
+            it[CLICK_HISTORY] = clicks + 1
+        }
+    }
+
+    suspend fun getClickHistory(): Int {
+        return dataStore.data.first()[CLICK_HISTORY] ?: 0
+    }
+
     suspend fun canShowInteristial(): Boolean {
+        increaseClickHistory()
         var last = getLastTime()
         if (last.toInt() == 0 || Seconds.secondsBetween(
                 DateTime(last),

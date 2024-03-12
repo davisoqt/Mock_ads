@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
+import androidx.activity.ComponentActivity
 import com.blankj.utilcode.util.LogUtils
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
@@ -96,7 +96,7 @@ class AdsUtils {
             })
         }
 
-        fun showRewarded(activity: FragmentActivity) {
+        fun showRewarded(activity: ComponentActivity) {
             if (::mRewardedAd.isInitialized) {
                 mRewardedAd.show(activity) {
                     isRewardEarned = true
@@ -105,7 +105,7 @@ class AdsUtils {
         }
 
 
-        fun showInterstitial(mActivity: FragmentActivity, action_close: () -> Unit) {
+        fun showInterstitial(mActivity: ComponentActivity, action_close: () -> Unit) {
             if (!::interstitialAd.isInitialized) {
                 action_close()
                 return
@@ -123,14 +123,19 @@ class AdsUtils {
             }
         }
 
-        fun showRateFlow(activity: FragmentActivity, action: () -> Unit) {
-            if (::reviewInfo.isInitialized) reviewManager.launchReviewFlow(activity, reviewInfo).addOnCompleteListener {
-                action()
+        fun showRateFlow(activity: ComponentActivity, action: () -> Unit) {
+            adsScope.launch(Dispatchers.IO) {
+                if (::reviewInfo.isInitialized && !adsManager.isAppRated() && adsManager.getClickHistory() % 3 == 0)
+                    withContext(Dispatchers.Main) {
+                        reviewManager.launchReviewFlow(activity, reviewInfo).addOnCompleteListener {
+                            action()
+                        }
+                    }
+                else withContext(Dispatchers.Main) { action() }
             }
-            else action()
         }
 
-        fun loadBannerAdaptativeBanner(activity: FragmentActivity, container: ViewGroup) {
+        fun loadBannerAdaptativeBanner(activity: ComponentActivity, container: ViewGroup) {
             val adView = AdView(activity)
             container.addView(adView)
             adView.adUnitId = activity.getString(R.string.banner)
@@ -139,7 +144,7 @@ class AdsUtils {
             adView.loadAd(adRequest)
         }
 
-        private fun adSize(activity: FragmentActivity, adViewContainer: View): AdSize {
+        private fun adSize(activity: ComponentActivity, adViewContainer: View): AdSize {
             val display = activity.windowManager.defaultDisplay
             val outMetrics = DisplayMetrics()
             display.getMetrics(outMetrics)

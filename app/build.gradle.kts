@@ -15,8 +15,6 @@ android {
         applicationId = "com.example.mockads"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
         versionCode = if(project.hasProperty("BUILD_NUMBER")) (project.properties["BUILD_NUMBER"] as String)!!.toInt() else 14
         versionName = "1.${defaultConfig.versionCode}"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
