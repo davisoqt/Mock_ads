@@ -1,11 +1,9 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.firebase.crashlytics")
     id("com.google.devtools.ksp")
-    id ("io.realm.kotlin")
+    id("io.realm.kotlin")
 //    id("com.google.gms.google-services")
 }
 
@@ -19,7 +17,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        versionCode = if(project.hasProperty("BUILD_NUMBER")) (project.properties["BUILD_NUMBER"] as String)!!.toInt() else 14
+        versionName = "1.${defaultConfig.versionCode}"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -57,11 +56,12 @@ dependencies {
     implementation(libs.compose.graphics)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material3)
+    implementation(libs.androidx.window)
     debugImplementation(libs.compose.ui.tooling.preview)
     debugImplementation(libs.compose.ui.test.manifest)
-    implementation (libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
-    implementation ("io.github.raamcosta.compose-destinations:animations-core:1.11.1-alpha")
+    implementation("io.github.raamcosta.compose-destinations:animations-core:1.11.1-alpha")
     ksp("io.github.raamcosta.compose-destinations:ksp:1.11.1-alpha")
 
     implementation(libs.workmanager)
@@ -69,8 +69,8 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.coil.compose)
 
-    implementation (libs.realm)
-    implementation (libs.jsoup)
+    implementation(libs.realm)
+    implementation(libs.jsoup)
 }
 
 

@@ -1,0 +1,32 @@
+image: alvrme/alpine-android:android-34-jdk17
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Deploy App
+          caches:
+            - gradle
+          script:
+            - yes | sdkmanager --licenses
+            - chmod +x ./gradlew
+            - "./gradlew -PBUILD_NUMBER=$BITBUCKET_BUILD_NUMBER bundleRelease"
+            - "./gradlew -PBUILD_NUMBER=$BITBUCKET_BUILD_NUMBER assembleRelease"
+          artifacts:
+            - app/build/outputs/**
+      - step:
+          name: Upload Files bundle
+          script:
+            - pipe: atlassian/bitbucket-upload-file:0.5.0
+              variables:
+                BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+                BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+                FILENAME: "app/build/outputs/bundle/release/app-release.aab"
+      - step:
+          name: Upload Files apk
+          script:
+            - pipe: atlassian/bitbucket-upload-file:0.5.0
+              variables:
+                BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+                BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+                FILENAME: "app/build/outputs/apk/release/app-release.apk"
