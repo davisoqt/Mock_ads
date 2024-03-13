@@ -11,11 +11,20 @@ android {
     namespace = "com.example.mockads"
     compileSdk = 34
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("debug.jks")
+            storePassword = "hGE#^0v18Huy"
+            keyAlias = "topewow"
+            keyPassword = "hGE#^0v18Huy"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.mockads"
         minSdk = 24
         targetSdk = 34
-        versionCode = if(project.hasProperty("BUILD_NUMBER")) (project.properties["BUILD_NUMBER"] as String)!!.toInt() else 14
+        versionCode = if(project.hasProperty("BUILD_NUMBER")) (project.properties["BUILD_NUMBER"] as String)!!.toInt() else 1
         versionName = "1.${defaultConfig.versionCode}"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -26,7 +35,9 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
