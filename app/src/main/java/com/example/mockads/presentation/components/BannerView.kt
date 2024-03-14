@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.window.layout.WindowMetrics
 import androidx.window.layout.WindowMetricsCalculator
 import com.blankj.utilcode.util.StringUtils
 import com.google.android.gms.ads.AdRequest
@@ -15,7 +16,7 @@ fun BannerAd(modifier: Modifier = Modifier) {
     AndroidView(
         modifier = modifier.fillMaxWidth(),
         factory = { context ->
-            val windowMetrics: androidx.window.layout.WindowMetrics =
+            val windowMetrics: WindowMetrics =
                 WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(context)
             val bounds = windowMetrics.bounds
 

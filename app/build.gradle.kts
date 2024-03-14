@@ -53,6 +53,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 dependencies {
@@ -65,7 +70,11 @@ dependencies {
     implementation(libs.compose.graphics)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material3)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(platform(libs.compose.boom))
     implementation(libs.androidx.window)
+    androidTestImplementation(platform(libs.compose.boom))
+    androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling.preview)
     debugImplementation(libs.compose.ui.test.manifest)
     implementation(libs.androidx.lifecycle.runtime.compose)
