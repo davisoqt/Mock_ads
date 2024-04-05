@@ -40,3 +40,9 @@
     java.lang.Object writeReplace();
     java.lang.Object readResolve();
 }
+
+ -if class *
+ -keepclasseswithmembers class <1> {
+   <init>(...);
+   @com.google.gson.annotations.SerializedName <fields>;
+ }

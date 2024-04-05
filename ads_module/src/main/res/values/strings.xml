@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="admob_id"></string>
+    <string name="admob_id">ca-app-pub-3422467574087666~2136242930</string>
     <string name="banner"></string>
     <string name="interistial"></string>
     <string name="carga"></string>
